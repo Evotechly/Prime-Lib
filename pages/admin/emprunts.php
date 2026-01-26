@@ -1,4 +1,8 @@
-﻿<?php
+<?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
 $activities = [
   [
     "member" => "Amina Benali",
@@ -191,7 +195,12 @@ foreach ($activities as $a) {
                 </tr>
               </thead>
               <tbody id="activity-table">
-                <?php foreach ($activities as $a): ?>
+                <?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
+foreach ($activities as $a): ?>
                   <tr data-status="<?= e($a["status_class"]) ?>">
                     <td><?= e($a["member"]) ?></td>
                     <td><?= e($a["book"]) ?></td>
@@ -203,7 +212,12 @@ foreach ($activities as $a) {
                       </span>
                     </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
+endforeach; ?>
               </tbody>
             </table>
 
@@ -226,5 +240,6 @@ foreach ($activities as $a) {
     <script src="../../Assets/js/emprunts.js"></script>
   </body>
 </html>
+
 
 

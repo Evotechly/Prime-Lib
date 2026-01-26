@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -65,7 +70,7 @@
           <button class="user-pill">
             <span class="avatar">U</span>
             <div class="user-meta">
-              <div class="user-name">User</div>
+              <div class="user-name"><?= htmlspecialchars($authDisplayName !== "" ? $authDisplayName : "Admin", ENT_QUOTES, "UTF-8") ?></div>
               <div class="user-role">Admin</div>
             </div>
           </button>
@@ -223,4 +228,6 @@
   <script src="../../Assets/js/script.js"></script>
 </body>
 </html>
+
+
 

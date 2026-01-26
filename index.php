@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+?php
+require_once __DIR__ . '/includes/auth.php';
+if (auth_role() === 'admin') {
+    redirect('/primelib/pages/admin/dashboard.php');
+}
+if (auth_role() === 'user') {
+    redirect('/primelib/pages/reader/dashboard.php');
+}
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -209,3 +217,4 @@
   <script src="Assets/js/script.js"></script>
 </body>
 </html>
+

@@ -1,4 +1,8 @@
-﻿<?php
+<?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
 $settings = [
   "library_name" => "Prime Lib Central",
   "email" => "admin@primelib.com",
@@ -154,4 +158,5 @@ function e(string $s): string {
     <script src="../../Assets/js/script.js"></script>
   </body>
 </html>
+
 

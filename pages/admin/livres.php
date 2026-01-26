@@ -1,4 +1,8 @@
-﻿<?php
+<?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
 // livres.php
 
 // Later you can replace this array with a DB query (MySQL/PDO)
@@ -201,7 +205,12 @@ foreach ($books as $b) {
               </thead>
 
               <tbody id="books-table">
-                <?php foreach ($books as $b): ?>
+                <?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
+foreach ($books as $b): ?>
                   <tr
                     data-title="<?= e($b["title"]) ?>"
                     data-author="<?= e($b["author"]) ?>"
@@ -217,7 +226,12 @@ foreach ($books as $b) {
                       </span>
                     </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+$authUser = auth_user();
+$authDisplayName = trim(($authUser['prenom'] ?? '') . ' ' . ($authUser['nom'] ?? ''));
+endforeach; ?>
               </tbody>
             </table>
 
@@ -240,6 +254,7 @@ foreach ($books as $b) {
     <script src="../../Assets/js/livres.js"></script>
   </body>
 </html>
+
 
 
 
