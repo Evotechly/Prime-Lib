@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime Lib Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">P</div>
+          <span>Prime Lib</span>
+        </div>
+        <nav class="nav">
+          <a class="nav-item active" href="#">
+            <span class="icon">🏠</span> Dashboard
+          </a>
+          <a class="nav-item" href="#">
+            <span class="icon">📚</span> Books
+          </a>
+          <a class="nav-item" href="#">
+            <span class="icon">📊</span> Analytics
+          </a>
+          <a class="nav-item" href="#">
+            <span class="icon">📝</span> Activities
+          </a>
+          <a class="nav-item" href="#">
+            <span class="icon">👤</span> Members
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <button class="ghost">⚙️ Settings</button>
+          <button class="ghost">⏻ Logout</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="search">
+            <span class="icon">🔍</span>
+            <input type="text" placeholder="Search" />
+          </div>
+          <div class="topbar-right">
+            <div class="language">
+              <span class="flag">🇬🇧</span>
+              English
+              <span class="caret">▾</span>
+            </div>
+            <div class="user">
+              <div class="avatar">U</div>
+              <div class="user-meta">
+                <span class="name">User</span>
+                <span class="role">Admin</span>
+              </div>
+              <span class="caret">▾</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="content">
+          <h1>Dashboard</h1>
+          <div class="stat-grid">
+            <article class="stat-card">
+              <div>
+                <p>Total Members</p>
+                <h2>176</h2>
+                <span class="trend up">↗ 8.5% Up from yesterday</span>
+              </div>
+              <div class="stat-icon purple">👥</div>
+            </article>
+            <article class="stat-card">
+              <div>
+                <p>Total Books</p>
+                <h2>10293</h2>
+              </div>
+              <div class="stat-icon yellow">📦</div>
+            </article>
+            <article class="stat-card">
+              <div>
+                <p>Overdue Returns</p>
+                <h2>90</h2>
+                <span class="trend down">↘ 4.3% Down from yesterday</span>
+              </div>
+              <div class="stat-icon mint">📈</div>
+            </article>
+            <article class="stat-card">
+              <div>
+                <p>Borrowed Books</p>
+                <h2>105</h2>
+                <span class="trend up">↗ 1.8% Up from yesterday</span>
+              </div>
+              <div class="stat-icon orange">⏱️</div>
+            </article>
+          </div>
+
+          <div class="panel-grid">
+            <section class="panel">
+              <header>
+                <h3>Members</h3>
+              </header>
+              <div class="members-circle">
+                <div class="ring"></div>
+                <div class="ring-dot dot-1"></div>
+                <div class="ring-dot dot-2"></div>
+                <div class="ring-dot dot-3"></div>
+                <div class="ring-dot dot-4"></div>
+              </div>
+              <div class="legend">
+                <div>
+                  <h4>26</h4>
+                  <p><span class="dot blue"></span> New Members</p>
+                </div>
+                <div>
+                  <h4>150</h4>
+                  <p><span class="dot light"></span> Old Members</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <header>
+                <h3>Analytics</h3>
+              </header>
+              <svg viewBox="0 0 380 180" class="line-chart" aria-hidden="true">
+                <polyline
+                  fill="none"
+                  stroke="#3b6cff"
+                  stroke-width="4"
+                  points="20,140 70,90 120,70 170,85 220,100 270,90 320,60 360,30"
+                />
+                <polyline
+                  fill="none"
+                  stroke="#00c2a8"
+                  stroke-width="4"
+                  points="20,160 70,110 120,95 170,110 220,130 270,120 320,90 360,40"
+                />
+                <g fill="#3b6cff">
+                  <circle cx="20" cy="140" r="4" />
+                  <circle cx="70" cy="90" r="4" />
+                  <circle cx="120" cy="70" r="4" />
+                  <circle cx="170" cy="85" r="4" />
+                  <circle cx="220" cy="100" r="4" />
+                  <circle cx="270" cy="90" r="4" />
+                  <circle cx="320" cy="60" r="4" />
+                  <circle cx="360" cy="30" r="4" />
+                </g>
+                <g fill="#00c2a8">
+                  <circle cx="20" cy="160" r="4" />
+                  <circle cx="70" cy="110" r="4" />
+                  <circle cx="120" cy="95" r="4" />
+                  <circle cx="170" cy="110" r="4" />
+                  <circle cx="220" cy="130" r="4" />
+                  <circle cx="270" cy="120" r="4" />
+                  <circle cx="320" cy="90" r="4" />
+                  <circle cx="360" cy="40" r="4" />
+                </g>
+                <line x1="20" y1="160" x2="360" y2="160" stroke="#edf0f4" />
+                <line x1="20" y1="120" x2="360" y2="120" stroke="#edf0f4" />
+                <line x1="20" y1="80" x2="360" y2="80" stroke="#edf0f4" />
+                <line x1="20" y1="40" x2="360" y2="40" stroke="#edf0f4" />
+                <g class="chart-labels">
+                  <text x="20" y="175">2015</text>
+                  <text x="120" y="175">2016</text>
+                  <text x="220" y="175">2017</text>
+                  <text x="320" y="175">2018</text>
+                  <text x="350" y="175">2019</text>
+                </g>
+              </svg>
+            </section>
+          </div>
+
+          <div class="panel-grid">
+            <section class="panel">
+              <header>
+                <h3>Best Category</h3>
+              </header>
+              <div class="category">
+                <ul>
+                  <li><span class="dot gold"></span> Science</li>
+                  <li><span class="dot blue"></span> Computer Science &amp; IT</li>
+                  <li><span class="dot teal"></span> Mathematics</li>
+                </ul>
+                <div class="donut"></div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <header>
+                <h3>Best Books</h3>
+              </header>
+              <div class="book-list">
+                <div class="book-item">
+                  <span class="rank first">1st</span>
+                  <div>
+                    <h4>Book Name</h4>
+                    <p>by Author</p>
+                  </div>
+                </div>
+                <div class="book-item">
+                  <span class="rank second">2nd</span>
+                  <div>
+                    <h4>Book Name</h4>
+                    <p>by Author</p>
+                  </div>
+                </div>
+                <div class="book-item">
+                  <span class="rank third">3rd</span>
+                  <div>
+                    <h4>Book Name</h4>
+                    <p>by Author</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
