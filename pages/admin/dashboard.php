@@ -10,42 +10,42 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-icon">P</div>
+        <div class="brand-icon"><img src="../../Assets/css/logo.png" alt=""></div>
         <div class="brand-text">
-          <div class="brand-name">PRIME LIB</div>
+          <div class="brand-name"><img src="../../Assets/icons/logo.png" alt=""></div>
         </div>
       </div>
 
       <nav class="nav">
         <a class="nav-item active" href="dashboard.php">
-          <img class="nav-icon" src="../../Assets/icons/home.svg" alt="" />
+          <img class="nav-icon" src="../../Assets/icons/homee.svg" alt="" />
           Dashboard
         </a>
         <a class="nav-item" href="livres.php">
-          <img class="nav-icon" src="../../Assets/icons/book.svg" alt="" />
+          <img class="nav-icon" src="../../Assets/icons/books.svg" alt="" />
           Books
         </a>
         <a class="nav-item" href="dashboard.php">
-          <img class="nav-icon" src="../../Assets/icons/chart-svgrepo-com.svg" alt="" />
+          <img class="nav-icon" src="../../Assets/icons/analytic.svg" alt="" />
           Analytics
         </a>
         <a class="nav-item" href="emprunts.php">
-          <img class="nav-icon" src="../../Assets/icons/case-round-svgrepo-com.svg" alt="" />
+          <img class="nav-icon" src="../../Assets/icons/activity.svg" alt="" />
           Activities
         </a>
         <a class="nav-item" href="utilisateurs.php">
-          <img class="nav-icon" src="../../Assets/icons/user.svg" alt="" />
+          <img class="nav-icon" src="../../Assets/icons/cog-member.svg" alt="" />
           Members
         </a>
       </nav>
 
       <div class="sidebar-footer">
         <a class="nav-item ghost" href="settings.php">
-          <img class="nav-icon" src="../../Assets/icons/layers.svg" alt="" />
+          <img class="nav-icon" src="../../Assets/icons/cog-svgrepo-com.svg" alt="" />
           Settings
         </a>
         <a class="nav-item ghost" href="../../logout.php">
-          <img class="nav-icon" src="../../Assets/icons/logout.svg" alt="" />
+          <img class="nav-icon" src="../../Assets/icons/logoutt.svg" alt="" />
           Logout
         </a>
       </div>

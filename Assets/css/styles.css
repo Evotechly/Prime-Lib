@@ -130,13 +130,15 @@ body.auth-body {
   gap: 28px;
   box-shadow: 20px 0 40px rgba(31, 38, 67, 0.03);
 }
-
+/*
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
+  */
+  
 }
 
 .brand-icon {
@@ -148,8 +150,17 @@ body.auth-body {
   display: grid;
   place-items: center;
   font-weight: 700;
-}
 
+}
+.brand-name img{
+  width: 250px;
+  height: 100px;
+  border-radius: 12px;
+  display: grid;
+  place-items:center;
+  font-weight: 700;
+
+}
 .nav {
   display: flex;
   flex-direction: column;

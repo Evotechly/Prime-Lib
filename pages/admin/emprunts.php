@@ -77,28 +77,28 @@ foreach ($activities as $a) {
     <div class="app">
       <aside class="sidebar">
         <div class="brand">
-          <div class="brand-icon">P</div>
-          <span>Prime Lib</span>
+          <div class="brand-icon"><img src="../../Assets/icons/logo.png" alt=""></div>
+          <span><img src="../../Assets/icons/logo.png" alt="" class="brand-name"></span>
         </div>
         <nav class="nav">
           <a class="nav-item" href="dashboard.php">
-            <img class="nav-icon" src="../../Assets/icons/home.svg" alt="" />
+            <img class="nav-icon" src="../../Assets/icons/homee.svg" alt="" />
             Dashboard
           </a>
           <a class="nav-item" href="livres.php">
-            <img class="nav-icon" src="../../Assets/icons/book.svg" alt="" />
+            <img class="nav-icon" src="../../Assets/icons/books.svg" alt="" />
             Books
           </a>
           <a class="nav-item" href="dashboard.php">
-            <img class="nav-icon" src="../../Assets/icons/chart-svgrepo-com.svg" alt="" />
+            <img class="nav-icon" src="../../Assets/analytic.svg" alt="" />
             Analytics
           </a>
           <a class="nav-item active" href="emprunts.php">
-            <img class="nav-icon" src="../../Assets/icons/case-round-svgrepo-com.svg" alt="" />
+            <img class="nav-icon" src="../../Assets/icons/activity.svg" alt="" />
             Activities
           </a>
           <a class="nav-item" href="utilisateurs.php">
-            <img class="nav-icon" src="../../Assets/icons/user.svg" alt="" />
+            <img class="nav-icon" src="../../Assets/icons/member.svg" alt="" />
             Members
           </a>
         </nav>
