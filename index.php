@@ -1,4 +1,4 @@
-?php
+﻿<?php
 require_once __DIR__ . '/includes/auth.php';
 if (auth_role() === 'admin') {
     redirect('/primelib/pages/admin/dashboard.php');
