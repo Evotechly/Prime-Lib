@@ -68,11 +68,14 @@ foreach ($users as $u) {
     <link rel="stylesheet" href="../../Assets/css/styles.css" />
   </head>
   <body>
-    <div class="app">
-      <aside class="sidebar">
-        <div class="brand">
-          <img src="../../Assets/icons/logo.png" alt="Logo" srcset="" class="brand-name">
+     <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon"><img src="../../Assets/css/logo.png" alt=""></div>
+        <div class="brand-text">
+          <div class="brand-name"><img src="../../Assets/icons/logo.png" alt=""></div>
         </div>
+      </div>
         <nav class="nav">
           <a class="nav-item" href="dashboard.php">
             <img class="nav-icon" src="../../Assets/icons/homee.svg" alt="" />
@@ -141,25 +144,32 @@ foreach ($users as $u) {
 
           <div class="stat-grid">
             <article class="stat-card">
-              <div>
-                <p>Total Users</p>
-                <h2><?= e((string)$total) ?></h2>
+              <div class="p12"> 
+                <img src="../../Assets/icons/users.svg" alt="" class="user00  " >
+                <span class="p11">Total Users</span>
+                
+                
               </div>
-              <div class="stat-icon blue">USERS</div>
+              <h2><?= e((string)$total) ?></h2>
+              <!-- <div class="stat-icon blue">USERS</div>-->
             </article>
             <article class="stat-card">
-              <div>
-                <p>Active</p>
-                <h2><?= e((string)$active) ?></h2>
+              <div class="p12">
+                <img src="../../Assets/icons/active.svg" alt="" class="user01">
+                 <span class="p11">active</span>
+                
               </div>
-              <div class="stat-icon green">OK</div>
+              <h2><?= e((string)$active) ?></h2>
+              <!--<div class="stat-icon green">OK</div>-->
             </article>
             <article class="stat-card">
-              <div>
-                <p>Staff</p>
-                <h2><?= e((string)$staff) ?></h2>
+              <div class="p12">
+                <img src="../../Assets/icons/staff.svg" alt="" class="user02">
+                 <span class="p11">staff</span>
+               
               </div>
-              <div class="stat-icon amber">TEAM</div>
+               <h2><?= e((string)$staff) ?></h2>
+              <!--<div class="stat-icon amber">TEAM</div>-->
             </article>
           </div>
 

@@ -13,7 +13,8 @@
         <div class="brand-icon"><img src="../../Assets/css/logo.png" alt=""></div>
         <div class="brand-text">
           <div class="brand-name"><img src="../../Assets/icons/logo.png" alt=""></div>
-        </div>
+</div>
+        
       </div>
 
       <nav class="nav">

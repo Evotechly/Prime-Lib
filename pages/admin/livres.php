@@ -80,11 +80,13 @@ foreach ($books as $b) {
   </head>
   <body>
     <div class="app">
-      <aside class="sidebar">
-        <div class="brand">
-          <div class="brand-icon">P</div>
-          <span>Prime Lib</span>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon"><img src="../../Assets/css/logo.png" alt=""></div>
+        <div class="brand-text">
+          <div class="brand-name"><img src="../../Assets/icons/logo.png" alt=""></div>
         </div>
+      </div>
         <nav class="nav">
           <a class="nav-item" href="dashboard.php" data-page="dashboard">
             <img class="nav-icon" src="../../Assets/icons/homee.svg" alt="" />
@@ -157,25 +159,33 @@ foreach ($books as $b) {
 
           <div class="stat-grid">
             <article class="stat-card">
-              <div>
-                <p>Total Titles</p>
-                <h2><?= e((string)$totalTitles) ?></h2>
+              <div class="p12">
+                <img src="../../Assets/icons/total titles.svg" alt="" class="user00">
+                <span class="p11">Total Titles</span>
+
+              
               </div>
-              <div class="stat-icon purple">TITLES</div>
+
+               <h2><?= e((string)$totalTitles) ?></h2>
+
+              <!--<div class="stat-icon purple">TITLES</div>-->
             </article>
             <article class="stat-card">
-              <div>
-                <p>Available Now</p>
-                <h2><?= e((string)$availableNow) ?></h2>
+              <div class="p12">
+                <img src="../../Assets/icons/Available.svg" alt="" class="user01">
+                <span class="p11">Available Now</span>
               </div>
-              <div class="stat-icon mint">OK</div>
+              <h2><?= e((string)$availableNow) ?></h2>
+              <!-- <div class="stat-icon mint">OK</div> -->
             </article>
             <article class="stat-card">
-              <div>
-                <p>On Loan</p>
-                <h2><?= e((string)$onLoan) ?></h2>
+              <div class="p12">
+                 <img src="../../Assets/icons/lloo.svg" alt="" class="user01">
+                <span class="p11">On Loan</span>
+               
               </div>
-              <div class="stat-icon orange">LOANS</div>
+              <h2><?= e((string)$onLoan) ?></h2>
+              <!-- <div class="stat-icon orange">LOANS</div> -->
             </article>
           </div>
 

@@ -74,12 +74,14 @@ foreach ($activities as $a) {
     <link rel="stylesheet" href="../../Assets/css/styles.css" />
   </head>
   <body>
-    <div class="app">
-      <aside class="sidebar">
-        <div class="brand">
-          <div class="brand-icon"><img src="../../Assets/icons/logo.png" alt=""></div>
-          <span><img src="../../Assets/icons/logo.png" alt="" class="brand-name"></span>
+     <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon"><img src="../../Assets/css/logo.png" alt=""></div>
+        <div class="brand-text">
+          <div class="brand-name"><img src="../../Assets/icons/logo.png" alt=""></div>
         </div>
+      </div>
         <nav class="nav">
           <a class="nav-item" href="dashboard.php">
             <img class="nav-icon" src="../../Assets/icons/homee.svg" alt="" />
