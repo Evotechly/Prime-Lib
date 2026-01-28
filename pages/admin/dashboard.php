@@ -54,12 +54,12 @@
     <main class="main">
       <header class="topbar">
         <div class="search">
-          <span class="search-icon">Search</span>
+          <span class="search-icon"><img class="p11" src="../../Assets/icons/search.png"></span>
           <input type="text" placeholder="Search" />
         </div>
         <div class="top-actions">
           <button class="pill">
-            <span class="flag">EN</span>
+            <span class="flag"><img class="p11" src="../../Assets/icons/language.png"></span>
             English
           </button>
           <button class="user-pill">
@@ -82,7 +82,7 @@
                 <div class="stat-label">Total Members</div>
                 <div class="stat-value" data-count="176">176</div>
               </div>
-              <div class="stat-icon blue">MEM</div>
+              <div class="stat-icon blue"><img src="../../Assets/icons/user.svg " alt=""></div>
             </div>
             <div class="stat-foot up">+ 8.5% Up from yesterday</div>
           </article>
@@ -91,9 +91,9 @@
             <div class="stat-head">
               <div>
                 <div class="stat-label">Total Books</div>
-                <div class="stat-value" data-count="10293">10,293</div>
+                <div class="stat-value" data-count="348">348</div>
               </div>
-              <div class="stat-icon amber">BOOK</div>
+              <div class="stat-icon amber"><img src="../../Assets/icons/book.png" alt=""></div>
             </div>
           </article>
 
@@ -103,7 +103,7 @@
                 <div class="stat-label">Overdue Returns</div>
                 <div class="stat-value" data-count="90">90</div>
               </div>
-              <div class="stat-icon green">LATE</div>
+              <div class="stat-icon green"><img src="../../Assets/icons/overdue.png" alt=""></div>
             </div>
             <div class="stat-foot down">- 4.3% Down from yesterday</div>
           </article>
@@ -114,7 +114,7 @@
                 <div class="stat-label">Borrowed Books</div>
                 <div class="stat-value" data-count="105">105</div>
               </div>
-              <div class="stat-icon peach">TIME</div>
+              <div class="stat-icon peach"><img src="../../Assets/icons/borrowed.png"></div>
             </div>
             <div class="stat-foot up">+ 1.8% Up from yesterday</div>
           </article>
@@ -123,16 +123,14 @@
         <div class="grid">
           <article class="panel">
             <div class="panel-title">Members</div>
+            <br><br>
             <div class="members-panel">
               <div class="donut">
                 <svg viewBox="0 0 120 120" aria-hidden="true">
                   <circle cx="60" cy="60" r="44" class="ring" />
                   <circle cx="60" cy="60" r="44" class="ring-progress" />
-                  <circle cx="60" cy="16" r="5" class="dot" />
-                  <circle cx="104" cy="60" r="5" class="dot" />
-                  <circle cx="60" cy="104" r="5" class="dot" />
-                  <circle cx="16" cy="60" r="5" class="dot" />
                 </svg>
+                <br>
               </div>
               <div class="member-stats">
                 <div>
@@ -193,21 +191,21 @@
             <div class="panel-title">Best Books</div>
             <ol class="book-list">
               <li>
-                <span class="rank gold">1st</span>
+                <span class="rank gold"><img class="rank gold" src="../../Assets/icons/1st.png" alt="" /></span>
                 <div>
                   <div class="book-name">Book Name</div>
                   <div class="book-author">by Author</div>
                 </div>
               </li>
               <li>
-                <span class="rank silver">2nd</span>
+                <span class="rank silver"><img class="rank silver" src="../../Assets/icons/2nd.png" alt="" /></span>
                 <div>
                   <div class="book-name">Book Name</div>
                   <div class="book-author">by Author</div>
                 </div>
               </li>
               <li>
-                <span class="rank bronze">3rd</span>
+                <span class="rank bronze"><img class="rank bronze" src="../../Assets/icons/3rd.png" alt="" /></span>
                 <div>
                   <div class="book-name">Book Name</div>
                   <div class="book-author">by Author</div>

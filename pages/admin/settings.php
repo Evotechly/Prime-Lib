@@ -70,9 +70,9 @@ function e(string $s): string {
           </div>
           <div class="topbar-right">
             <div class="language">
-              <span class="flag">EN</span>
+              <span class="flag"><img class="p11" src="../../Assets/icons/language.png"></span>
               English
-              <span class="caret">v</span>
+              <span class="caret"></span>
             </div>
             <div class="user">
               <div class="avatar">U</div>

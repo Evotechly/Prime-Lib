@@ -131,6 +131,11 @@ body.auth-body {
   box-shadow: 20px 0 40px rgba(31, 38, 67, 0.03);
 }
 
+
+.primelib {
+
+}
+
 .brand {
   display: flex;
   align-items: center;
@@ -248,6 +253,10 @@ body.auth-body {
   box-shadow: var(--shadow);
   cursor: pointer;
   font-size: 13px;
+}
+
+.p11 {
+  width: 22px;
 }
 
 .language .flag,
@@ -480,6 +489,11 @@ body.auth-body {
 .stat-icon.green { background: #d9f7eb; color: var(--green); }
 .stat-icon.peach { background: #ffe6de; color: #ff7b59; }
 
+.stat-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
 .stat-foot {
   margin-top: 12px;
   font-size: 12px;
@@ -509,14 +523,15 @@ body.auth-body {
 
 .members-panel {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 20px;
+  gap: 32px;
 }
 
 .donut {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .donut svg {
@@ -526,8 +541,8 @@ body.auth-body {
 
 .ring {
   fill: none;
-  stroke: #edf1f7;
-  stroke-width: 10;
+  stroke: #4c7cff;
+  stroke-width: 10; 
 }
 
 .ring-progress {
@@ -547,25 +562,32 @@ body.auth-body {
 .member-stats {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: 48px;
+}
+
+.member-stats > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .member-value {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
+  margin-bottom: 6px;
 }
 
 .member-label {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 .bullet {
-  width: 10px;
-  height: 10px;
+  width: 27px;
+  height: 20px;
   border-radius: 50%;
   display: inline-block;
 }
@@ -681,9 +703,21 @@ body.auth-body {
   color: #fff;
 }
 
-.rank.gold { background: #f2c15c; }
-.rank.silver { background: #c9cbd4; }
-.rank.bronze { background: #c98766; }
+.rank.gold { 
+  background: #fee0a2;
+  width: 50px;
+  height: 50px;
+ }
+.rank.silver { 
+  background: #c9cbd4; 
+  width: 50px;
+  height: 50px;
+}
+.rank.bronze { 
+  background: #d49f85; 
+  width: 50px;
+  height: 50px;
+}
 
 .book-name {
   font-weight: 600;
@@ -692,6 +726,7 @@ body.auth-body {
 .book-author {
   color: var(--muted);
   font-size: 12px;
+  padding-left: 100px;
 }
 
 @media (max-width: 1100px) {

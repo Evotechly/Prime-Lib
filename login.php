@@ -9,30 +9,29 @@
 <body class="auth-body">
   <div class="auth-card">
     <div class="brand">
-      <div class="brand-icon">P</div>
+        <div class=""><img class="primelib" src="../../Assets/img/logo.png">
+    </div>
       <div class="brand-text">
-        <div class="brand-name">PRIME LIB</div>
       </div>
     </div>
-
+      <br>
     <div class="auth-header">
       <h1 class="auth-title">Welcome back</h1>
-      <p class="auth-subtitle">Sign in to manage your library dashboard.</p>
     </div>
 
     <form class="form" method="post" action="pages/admin/dashboard.php">
       <div>
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="you@library.org" required />
+        <input id="email" name="email" type="email" required />
       </div>
       <div>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" placeholder="••••••••" required />
+        <input id="password" name="password" type="password"required />
       </div>
       <div class="auth-actions">
         <label>
-          <input type="checkbox" name="remember" />
           Remember me
+        <input type="checkbox" name="remember" />
         </label>
         <a href="signup.php">Forgot password?</a>
       </div>
@@ -40,7 +39,7 @@
     </form>
 
     <div class="auth-footer">
-      Don’t have an account? <a href="signup.php">Create one</a>
+      Don't have an account? <a href="signup.php"><ins>Create one</ins></a>
     </div>
   </div>
 </body>

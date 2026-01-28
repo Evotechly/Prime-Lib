@@ -117,14 +117,14 @@ foreach ($activities as $a) {
       <main class="main">
         <header class="topbar">
           <div class="search">
-            <span class="icon">Search</span>
+            <span class="icon"><img class="p11" src="../../Assets/icons/search.png"></span>
             <input type="text" id="activity-search" placeholder="Search member or book" />
           </div>
           <div class="topbar-right">
             <div class="language">
-              <span class="flag">EN</span>
+              <span class="flag"><img class="p11" src="../../Assets/icons/language.png"></span>
               English
-              <span class="caret">v</span>
+              <span class="caret"></span>
             </div>
             <div class="user">
               <div class="avatar">U</div>
@@ -132,7 +132,7 @@ foreach ($activities as $a) {
                 <span class="name">User</span>
                 <span class="role">Admin</span>
               </div>
-              <span class="caret">v</span>
+              <span class="caret"></span>
             </div>
           </div>
         </header>
