@@ -37,6 +37,7 @@ if ($result) {
     };
 
     $books[] = [
+      'id' => (int)$row['id_livre'],
       'title' => (string)$row['titre'],
       'author' => (string)$row['auteur'],
       'category' => (string)($row['genre'] ?? ''),
@@ -84,7 +85,7 @@ foreach ($books as $b) {
             <img class="nav-icon" src="../../Assets/icons/book.svg" alt="" />
             Books
           </a>
-          <a class="nav-item" href="dashboard.php">
+          <a class="nav-item" href="analytics.php">
             <img class="nav-icon" src="../../Assets/icons/chart-svgrepo-com.svg" alt="" />
             Analytics
           </a>
@@ -194,12 +195,13 @@ foreach ($books as $b) {
                   <th>Genre</th>
                   <th>Year</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="books-table">
                 <?php if (count($books) === 0): ?>
                   <tr>
-                    <td colspan="5" style="text-align:center;padding:16px;">No books yet. Add your first book.</td>
+                    <td colspan="6" style="text-align:center;padding:16px;">No books yet. Add your first book.</td>
                   </tr>
                 <?php endif; ?>
                 <?php foreach ($books as $b): ?>
@@ -212,6 +214,9 @@ foreach ($books as $b) {
                       <span class="status <?= e($b['status']) ?>">
                         <?= e($b['status_label']) ?>
                       </span>
+                    </td>
+                    <td>
+                      <a class="table-action" href="edit_livre.php?id=<?= e((string)$b['id']) ?>">Edit</a>
                     </td>
                   </tr>
                 <?php endforeach; ?>

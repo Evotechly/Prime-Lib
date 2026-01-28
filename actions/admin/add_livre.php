@@ -14,8 +14,16 @@ $auteur = trim((string)($_POST['auteur'] ?? ''));
 $genre = trim((string)($_POST['genre'] ?? ''));
 $annee = trim((string)($_POST['annee_publication'] ?? ''));
 $etat = trim((string)($_POST['etat_disponibilite'] ?? 'disponible'));
+$coverUrl = trim((string)($_POST['cover_url'] ?? ''));
 
-$old = compact('titre', 'auteur', 'genre', 'annee', 'etat');
+$old = [
+    'titre' => $titre,
+    'auteur' => $auteur,
+    'genre' => $genre,
+    'annee' => $annee,
+    'etat' => $etat,
+    'cover_url' => $coverUrl,
+];
 
 if ($titre === '' || $auteur === '') {
     $_SESSION['book_action_error'] = 'Title and author are required.';
@@ -38,24 +46,28 @@ if (!in_array($etat, $allowedEtat, true)) {
     $etat = 'disponible';
 }
 
+if ($coverUrl === '') {
+    $coverUrl = null;
+}
+
 if ($anneeInt === null) {
-    $sql = 'INSERT INTO livre (titre, auteur, genre, annee_publication, etat_disponibilite, id_admin) VALUES (?, ?, ?, NULL, ?, ?)';
+    $sql = 'INSERT INTO livre (titre, auteur, genre, annee_publication, etat_disponibilite, cover_url, id_admin) VALUES (?, ?, ?, NULL, ?, ?, ?)';
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         $_SESSION['book_action_error'] = 'Failed to prepare book insert.';
         $_SESSION['book_action_old'] = $old;
         redirect('/primelib/pages/admin/add_livre.php');
     }
-    $stmt->bind_param('ssssi', $titre, $auteur, $genre, $etat, $idAdmin);
+    $stmt->bind_param('sssssi', $titre, $auteur, $genre, $etat, $coverUrl, $idAdmin);
 } else {
-    $sql = 'INSERT INTO livre (titre, auteur, genre, annee_publication, etat_disponibilite, id_admin) VALUES (?, ?, ?, ?, ?, ?)';
+    $sql = 'INSERT INTO livre (titre, auteur, genre, annee_publication, etat_disponibilite, cover_url, id_admin) VALUES (?, ?, ?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         $_SESSION['book_action_error'] = 'Failed to prepare book insert.';
         $_SESSION['book_action_old'] = $old;
         redirect('/primelib/pages/admin/add_livre.php');
     }
-    $stmt->bind_param('sssisi', $titre, $auteur, $genre, $anneeInt, $etat, $idAdmin);
+    $stmt->bind_param('sssissi', $titre, $auteur, $genre, $anneeInt, $etat, $coverUrl, $idAdmin);
 }
 
 if (!$stmt->execute()) {

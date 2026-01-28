@@ -16,6 +16,24 @@ CREATE TABLE admin (
 );
 
 -- =========================
+-- TABLE : SETTINGS
+-- =========================
+CREATE TABLE settings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  library_name VARCHAR(200) NOT NULL,
+  contact_email VARCHAR(150) NOT NULL,
+  contact_phone VARCHAR(50) NOT NULL,
+  timezone VARCHAR(50) NOT NULL,
+  language VARCHAR(50) NOT NULL,
+  loan_days INT NOT NULL DEFAULT 14,
+  late_fee DECIMAL(10,2) NOT NULL DEFAULT 1.00,
+  due_reminders VARCHAR(120) NOT NULL DEFAULT 'Email + SMS enabled',
+  overdue_alerts VARCHAR(120) NOT NULL DEFAULT 'Escalation after 3 days',
+  two_factor VARCHAR(80) NOT NULL DEFAULT 'Required for staff accounts',
+  session_timeout VARCHAR(80) NOT NULL DEFAULT '30 minutes of inactivity'
+);
+
+-- =========================
 -- TABLE : UTILISATEUR
 -- =========================
 CREATE TABLE utilisateur (
@@ -42,6 +60,7 @@ CREATE TABLE livre (
   genre  VARCHAR(80),
   annee_publication INT,
   etat_disponibilite VARCHAR(30) NOT NULL, -- ex: 'disponible', 'emprunte', 'perdu'
+  cover_url VARCHAR(255) NULL,
 
   id_admin INT, -- admin qui gere ce livre (0,1 cote livre ; 0,n cote admin)
   CONSTRAINT fk_livre_admin

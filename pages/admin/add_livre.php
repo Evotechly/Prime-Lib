@@ -20,6 +20,7 @@ $oldAuteur = e((string)($old['auteur'] ?? ''));
 $oldGenre = e((string)($old['genre'] ?? ''));
 $oldAnnee = e((string)($old['annee'] ?? ''));
 $oldEtat = (string)($old['etat'] ?? 'disponible');
+$oldCover = e((string)($old['cover_url'] ?? ''));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +76,10 @@ $oldEtat = (string)($old['etat'] ?? 'disponible');
               <label for="annee_publication">Publication Year</label>
               <input id="annee_publication" name="annee_publication" type="number" min="0" step="1" value="<?= $oldAnnee ?>" />
             </div>
+          </div>
+          <div>
+            <label for="cover_url">Cover image URL</label>
+            <input id="cover_url" name="cover_url" type="url" placeholder="https://..." value="<?= $oldCover ?>" />
           </div>
           <div>
             <label for="etat_disponibilite">Availability</label>

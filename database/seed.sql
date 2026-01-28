@@ -10,6 +10,12 @@ INSERT INTO admin (id_admin, nom, prenom, email, mot_de_passe) VALUES
 (2, 'Biblio', 'Super', 'super@biblio.local', SHA2('Super@12345', 256));
 
 -- =========================
+-- SETTINGS (1)
+-- =========================
+INSERT INTO settings (id, library_name, contact_email, contact_phone, timezone, language, loan_days, late_fee, due_reminders, overdue_alerts, two_factor, session_timeout) VALUES
+(1, 'Prime Lib Central', 'admin@primelib.com', '+1 (555) 248-9021', 'UTC-05:00', 'English', 14, 1.00, 'Email + SMS enabled', 'Escalation after 3 days', 'Required for staff accounts', '30 minutes of inactivity');
+
+-- =========================
 -- UTILISATEURS (15)
 -- =========================
 INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, mot_de_passe, id_admin) VALUES
@@ -33,32 +39,32 @@ INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, mot_de_passe, id_ad
 -- LIVRES (25)
 -- etat_disponibilite mis "disponible" au départ
 -- =========================
-INSERT INTO livre (id_livre, titre, auteur, genre, annee_publication, etat_disponibilite, id_admin) VALUES
-(1, 'Le Petit Prince', 'Antoine de Saint-Exupéry', 'Roman', 1943, 'disponible', 1),
-(2, 'L’Étranger', 'Albert Camus', 'Roman', 1942, 'disponible', 1),
-(3, 'Les Misérables', 'Victor Hugo', 'Classique', 1862, 'disponible', 2),
-(4, 'Candide', 'Voltaire', 'Philosophie', 1759, 'disponible', 2),
-(5, 'Madame Bovary', 'Gustave Flaubert', 'Roman', 1857, 'disponible', 1),
-(6, 'Germinal', 'Émile Zola', 'Roman', 1885, 'disponible', 1),
-(7, '1984', 'George Orwell', 'Dystopie', 1949, 'disponible', 2),
-(8, 'La Peste', 'Albert Camus', 'Roman', 1947, 'disponible', 2),
-(9, 'Fahrenheit 451', 'Ray Bradbury', 'Dystopie', 1953, 'disponible', 1),
-(10, 'Les Fleurs du mal', 'Charles Baudelaire', 'Poésie', 1857, 'disponible', 1),
-(11, 'Le Rouge et le Noir', 'Stendhal', 'Roman', 1830, 'disponible', 2),
-(12, 'Bel-Ami', 'Guy de Maupassant', 'Roman', 1885, 'disponible', 2),
-(13, 'Le Comte de Monte-Cristo', 'Alexandre Dumas', 'Aventure', 1844, 'disponible', 1),
-(14, 'Notre-Dame de Paris', 'Victor Hugo', 'Classique', 1831, 'disponible', 1),
-(15, 'Le Père Goriot', 'Honoré de Balzac', 'Roman', 1835, 'disponible', 2),
-(16, 'L’Odyssée', 'Homère', 'Épopée', -800, 'disponible', 2),
-(17, 'Crime et Châtiment', 'Fiodor Dostoïevski', 'Roman', 1866, 'disponible', 1),
-(18, 'Le Procès', 'Franz Kafka', 'Roman', 1925, 'disponible', 1),
-(19, 'Le Vieil Homme et la Mer', 'Ernest Hemingway', 'Roman', 1952, 'disponible', 2),
-(20, 'Le Seigneur des Anneaux', 'J.R.R. Tolkien', 'Fantasy', 1954, 'disponible', 2),
-(21, 'Harry Potter à l’école des sorciers', 'J.K. Rowling', 'Fantasy', 1997, 'disponible', 1),
-(22, 'Dune', 'Frank Herbert', 'Science-fiction', 1965, 'disponible', 1),
-(23, 'Sapiens', 'Yuval Noah Harari', 'Histoire', 2011, 'disponible', 2),
-(24, 'Clean Code', 'Robert C. Martin', 'Informatique', 2008, 'disponible', 2),
-(25, 'Introduction aux bases de données', 'Auteur L2', 'Informatique', 2020, 'disponible', 1);
+INSERT INTO livre (id_livre, titre, auteur, genre, annee_publication, etat_disponibilite, cover_url, id_admin) VALUES
+(1, 'Le Petit Prince', 'Antoine de Saint-Exupéry', 'Roman', 1943, 'disponible', NULL, 1),
+(2, 'L’Étranger', 'Albert Camus', 'Roman', 1942, 'disponible', NULL, 1),
+(3, 'Les Misérables', 'Victor Hugo', 'Classique', 1862, 'disponible', NULL, 2),
+(4, 'Candide', 'Voltaire', 'Philosophie', 1759, 'disponible', NULL, 2),
+(5, 'Madame Bovary', 'Gustave Flaubert', 'Roman', 1857, 'disponible', NULL, 1),
+(6, 'Germinal', 'Émile Zola', 'Roman', 1885, 'disponible', NULL, 1),
+(7, '1984', 'George Orwell', 'Dystopie', 1949, 'disponible', NULL, 2),
+(8, 'La Peste', 'Albert Camus', 'Roman', 1947, 'disponible', NULL, 2),
+(9, 'Fahrenheit 451', 'Ray Bradbury', 'Dystopie', 1953, 'disponible', NULL, 1),
+(10, 'Les Fleurs du mal', 'Charles Baudelaire', 'Poésie', 1857, 'disponible', NULL, 1),
+(11, 'Le Rouge et le Noir', 'Stendhal', 'Roman', 1830, 'disponible', NULL, 2),
+(12, 'Bel-Ami', 'Guy de Maupassant', 'Roman', 1885, 'disponible', NULL, 2),
+(13, 'Le Comte de Monte-Cristo', 'Alexandre Dumas', 'Aventure', 1844, 'disponible', NULL, 1),
+(14, 'Notre-Dame de Paris', 'Victor Hugo', 'Classique', 1831, 'disponible', NULL, 1),
+(15, 'Le Père Goriot', 'Honoré de Balzac', 'Roman', 1835, 'disponible', NULL, 2),
+(16, 'L’Odyssée', 'Homère', 'Épopée', -800, 'disponible', NULL, 2),
+(17, 'Crime et Châtiment', 'Fiodor Dostoïevski', 'Roman', 1866, 'disponible', NULL, 1),
+(18, 'Le Procès', 'Franz Kafka', 'Roman', 1925, 'disponible', NULL, 1),
+(19, 'Le Vieil Homme et la Mer', 'Ernest Hemingway', 'Roman', 1952, 'disponible', NULL, 2),
+(20, 'Le Seigneur des Anneaux', 'J.R.R. Tolkien', 'Fantasy', 1954, 'disponible', NULL, 2),
+(21, 'Harry Potter à l’école des sorciers', 'J.K. Rowling', 'Fantasy', 1997, 'disponible', NULL, 1),
+(22, 'Dune', 'Frank Herbert', 'Science-fiction', 1965, 'disponible', NULL, 1),
+(23, 'Sapiens', 'Yuval Noah Harari', 'Histoire', 2011, 'disponible', NULL, 2),
+(24, 'Clean Code', 'Robert C. Martin', 'Informatique', 2008, 'disponible', NULL, 2),
+(25, 'Introduction aux bases de données', 'Auteur L2', 'Informatique', 2020, 'disponible', NULL, 1);
 
 -- =========================
 -- EMPRUNTS (30)
@@ -125,3 +131,4 @@ SELECT COUNT(*) AS nb_utilisateurs FROM utilisateur;
 SELECT COUNT(*) AS nb_livres FROM livre;
 SELECT COUNT(*) AS nb_emprunts FROM emprunt;
 SELECT etat_disponibilite, COUNT(*) AS nb FROM livre GROUP BY etat_disponibilite;
+
