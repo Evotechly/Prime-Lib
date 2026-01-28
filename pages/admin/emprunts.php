@@ -1,69 +1,91 @@
-﻿<?php
-$activities = [
-  [
-    "member" => "Amina Benali",
-    "book" => "The Silent Signal",
-    "type" => "Borrowed",
-    "due" => "2026-02-05",
-    "status_label" => "Due soon",
-    "status_class" => "soon",
-  ],
-  [
-    "member" => "Omar Khaled",
-    "book" => "Modern Algorithms",
-    "type" => "Returned",
-    "due" => "2026-01-20",
-    "status_label" => "Returned",
-    "status_class" => "available",
-  ],
-  [
-    "member" => "Sara Idris",
-    "book" => "Ocean Stories",
-    "type" => "Overdue",
-    "due" => "2026-01-12",
-    "status_label" => "Overdue",
-    "status_class" => "unavailable",
-  ],
-  [
-    "member" => "Youssef Ali",
-    "book" => "Math for Creators",
-    "type" => "Borrowed",
-    "due" => "2026-02-18",
-    "status_label" => "On time",
-    "status_class" => "available",
-  ],
-  [
-    "member" => "Lina Noor",
-    "book" => "Community Design",
-    "type" => "Borrowed",
-    "due" => "2026-02-02",
-    "status_label" => "Due soon",
-    "status_class" => "soon",
-  ],
-  [
-    "member" => "Hassan Rahim",
-    "book" => "The Quantum Path",
-    "type" => "Overdue",
-    "due" => "2026-01-09",
-    "status_label" => "Overdue",
-    "status_class" => "unavailable",
-  ],
-];
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+
+$authUser = auth_user();
+$authDisplayName = trim((string)($authUser['prenom'] ?? '') . ' ' . (string)($authUser['nom'] ?? ''));
 
 function e(string $s): string {
   return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
 
-$total = count($activities);
-$dueSoon = 0;
-$overdue = 0;
-$returned = 0;
-
-foreach ($activities as $a) {
-  if ($a["status_label"] === "Overdue") $overdue++;
-  else if ($a["status_label"] === "Returned") $returned++;
-  else $dueSoon++;
+function fetch_count(mysqli $conn, string $sql): int {
+  $result = $conn->query($sql);
+  if (!$result) {
+    return 0;
+  }
+  $row = $result->fetch_assoc();
+  $result->close();
+  return (int)($row['total'] ?? 0);
 }
+
+$totalActivities = fetch_count($conn, 'SELECT COUNT(*) AS total FROM emprunt');
+$dueSoonCount = fetch_count(
+  $conn,
+  "SELECT COUNT(*) AS total FROM emprunt
+   WHERE date_retour_effective IS NULL
+     AND date_retour_prevue >= CURDATE()
+     AND date_retour_prevue <= DATE_ADD(CURDATE(), INTERVAL 3 DAY)"
+);
+$overdueCount = fetch_count(
+  $conn,
+  "SELECT COUNT(*) AS total FROM emprunt
+   WHERE date_retour_effective IS NULL
+     AND date_retour_prevue < CURDATE()"
+);
+
+$activities = [];
+$activitySql = "SELECT e.date_emprunt, e.date_retour_prevue, e.date_retour_effective,
+                       e.id_emprunt, u.prenom, u.nom, l.titre
+                FROM emprunt e
+                JOIN utilisateur u ON e.id_utilisateur = u.id_utilisateur
+                JOIN livre l ON e.id_livre = l.id_livre
+                ORDER BY e.date_emprunt DESC, e.id_emprunt DESC
+                LIMIT 50";
+$activityResult = $conn->query($activitySql);
+if ($activityResult) {
+  while ($row = $activityResult->fetch_assoc()) {
+    $due = (string)$row['date_retour_prevue'];
+    $returned = $row['date_retour_effective'];
+    $statusLabel = 'On time';
+    $statusClass = 'available';
+    $type = 'Borrowed';
+
+    if (!empty($returned)) {
+      $statusLabel = 'Returned';
+      $statusClass = 'available';
+      $type = 'Returned';
+    } else {
+      $dueTs = strtotime($due);
+      $nowTs = strtotime(date('Y-m-d'));
+      $soonTs = strtotime('+3 days', $nowTs);
+      if ($dueTs < $nowTs) {
+        $statusLabel = 'Overdue';
+        $statusClass = 'unavailable';
+        $type = 'Overdue';
+      } elseif ($dueTs <= $soonTs) {
+        $statusLabel = 'Due soon';
+        $statusClass = 'soon';
+        $type = 'Borrowed';
+      }
+    }
+
+    $activities[] = [
+      'id' => (int)$row['id_emprunt'],
+      'member' => trim((string)$row['prenom'] . ' ' . (string)$row['nom']),
+      'book' => (string)$row['titre'],
+      'type' => $type,
+      'due' => $due,
+      'status_label' => $statusLabel,
+      'status_class' => $statusClass,
+    ];
+  }
+  $activityResult->close();
+}
+
+$shownCount = count($activities);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,7 +111,7 @@ foreach ($activities as $a) {
             <img class="nav-icon" src="../../Assets/icons/book.svg" alt="" />
             Books
           </a>
-          <a class="nav-item" href="dashboard.php">
+          <a class="nav-item" href="analytics.php">
             <img class="nav-icon" src="../../Assets/icons/chart-svgrepo-com.svg" alt="" />
             Analytics
           </a>
@@ -129,7 +151,7 @@ foreach ($activities as $a) {
             <div class="user">
               <div class="avatar">U</div>
               <div class="user-meta">
-                <span class="name">User</span>
+                <span class="name"><?= e($authDisplayName !== '' ? $authDisplayName : 'Admin') ?></span>
                 <span class="role">Admin</span>
               </div>
               <span class="caret"></span>
@@ -150,21 +172,21 @@ foreach ($activities as $a) {
             <article class="stat-card">
               <div>
                 <p>Total Activities</p>
-                <h2><?= e((string)$total) ?></h2>
+                <h2><?= e((string)$totalActivities) ?></h2>
               </div>
               <div class="stat-icon blue">LOG</div>
             </article>
             <article class="stat-card">
               <div>
                 <p>Due Soon</p>
-                <h2><?= e((string)$dueSoon) ?></h2>
+                <h2><?= e((string)$dueSoonCount) ?></h2>
               </div>
               <div class="stat-icon amber">SOON</div>
             </article>
             <article class="stat-card">
               <div>
                 <p>Overdue</p>
-                <h2><?= e((string)$overdue) ?></h2>
+                <h2><?= e((string)$overdueCount) ?></h2>
               </div>
               <div class="stat-icon peach">LATE</div>
             </article>
@@ -188,19 +210,28 @@ foreach ($activities as $a) {
                   <th>Type</th>
                   <th>Due Date</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="activity-table">
+                <?php if ($shownCount === 0): ?>
+                  <tr>
+                    <td colspan="6" style="text-align:center;padding:16px;">No activity yet.</td>
+                  </tr>
+                <?php endif; ?>
                 <?php foreach ($activities as $a): ?>
-                  <tr data-status="<?= e($a["status_class"]) ?>">
-                    <td><?= e($a["member"]) ?></td>
-                    <td><?= e($a["book"]) ?></td>
-                    <td><?= e($a["type"]) ?></td>
-                    <td><?= e($a["due"]) ?></td>
+                  <tr data-status="<?= e($a['status_class']) ?>">
+                    <td><?= e($a['member']) ?></td>
+                    <td><?= e($a['book']) ?></td>
+                    <td><?= e($a['type']) ?></td>
+                    <td><?= e($a['due']) ?></td>
                     <td>
-                      <span class="status <?= e($a["status_class"]) ?>">
-                        <?= e($a["status_label"]) ?>
+                      <span class="status <?= e($a['status_class']) ?>">
+                        <?= e($a['status_label']) ?>
                       </span>
+                    </td>
+                    <td>
+                      <a class="table-action" href="edit_emprunt.php?id=<?= e((string)$a['id']) ?>">Edit</a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
@@ -209,7 +240,7 @@ foreach ($activities as $a) {
 
             <div class="table-footer">
               <span>
-                Showing <?= e((string)count($activities)) ?> of <?= e((string)count($activities)) ?> activities
+                Showing <?= e((string)$shownCount) ?> of <?= e((string)$totalActivities) ?> activities
               </span>
               <div class="pager">
                 <button class="page-btn" type="button">1</button>
@@ -226,5 +257,3 @@ foreach ($activities as $a) {
     <script src="../../Assets/js/emprunts.js"></script>
   </body>
 </html>
-
-

@@ -1,62 +1,63 @@
-﻿<?php
-$users = [
-  [
-    "name" => "Amina Benali",
-    "email" => "amina.b@primelib.com",
-    "role" => "Librarian",
-    "status_label" => "Active",
-    "status_class" => "available",
-  ],
-  [
-    "name" => "Omar Khaled",
-    "email" => "omar.k@primelib.com",
-    "role" => "Assistant",
-    "status_label" => "Active",
-    "status_class" => "available",
-  ],
-  [
-    "name" => "Sara Idris",
-    "email" => "sara.i@primelib.com",
-    "role" => "Member",
-    "status_label" => "Inactive",
-    "status_class" => "unavailable",
-  ],
-  [
-    "name" => "Youssef Ali",
-    "email" => "youssef.a@primelib.com",
-    "role" => "Member",
-    "status_label" => "Active",
-    "status_class" => "available",
-  ],
-  [
-    "name" => "Lina Noor",
-    "email" => "lina.n@primelib.com",
-    "role" => "Manager",
-    "status_label" => "Active",
-    "status_class" => "available",
-  ],
-  [
-    "name" => "Hassan Rahim",
-    "email" => "hassan.r@primelib.com",
-    "role" => "Member",
-    "status_label" => "Suspended",
-    "status_class" => "soon",
-  ],
-];
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/../../includes/auth.php';
+require_role('admin');
+
+$authUser = auth_user();
+$authDisplayName = trim((string)($authUser['prenom'] ?? '') . ' ' . (string)($authUser['nom'] ?? ''));
+
+$flashSuccess = $_SESSION['admin_action_success'] ?? $_SESSION['user_action_success'] ?? null;
+$flashError = $_SESSION['admin_action_error'] ?? $_SESSION['user_action_error'] ?? null;
+unset(
+  $_SESSION['admin_action_success'],
+  $_SESSION['admin_action_error'],
+  $_SESSION['user_action_success'],
+  $_SESSION['user_action_error']
+);
 
 function e(string $s): string {
   return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
 
-$total = count($users);
-$active = 0;
-$inactive = 0;
-$staff = 0;
+function fetch_count(mysqli $conn, string $sql): int {
+  $result = $conn->query($sql);
+  if (!$result) {
+    return 0;
+  }
+  $row = $result->fetch_assoc();
+  $result->close();
+  return (int)($row['total'] ?? 0);
+}
 
-foreach ($users as $u) {
-  if ($u["status_label"] === "Active") $active++;
-  else $inactive++;
-  if ($u["role"] !== "Member") $staff++;
+$adminCount = fetch_count($conn, 'SELECT COUNT(*) AS total FROM admin');
+$userCount = fetch_count($conn, 'SELECT COUNT(*) AS total FROM utilisateur');
+$total = $adminCount + $userCount;
+$staff = $adminCount;
+$active = $total;
+
+$users = [];
+$userSql = "SELECT id_admin AS id, CONCAT(prenom, ' ', nom) AS name, email, 'Admin' AS role, 'staff' AS role_key, 'admin' AS type, 1 AS role_order
+            FROM admin
+            UNION ALL
+            SELECT id_utilisateur AS id, CONCAT(prenom, ' ', nom) AS name, email, 'Member' AS role, 'member' AS role_key, 'user' AS type, 2 AS role_order
+            FROM utilisateur
+            ORDER BY role_order, name";
+$userResult = $conn->query($userSql);
+if ($userResult) {
+  while ($row = $userResult->fetch_assoc()) {
+    $users[] = [
+      'id' => (int)$row['id'],
+      'name' => (string)$row['name'],
+      'email' => (string)$row['email'],
+      'role' => (string)$row['role'],
+      'role_key' => (string)$row['role_key'],
+      'type' => (string)$row['type'],
+      'status_label' => 'Active',
+      'status_class' => 'available',
+    ];
+  }
+  $userResult->close();
 }
 ?>
 <!DOCTYPE html>
@@ -83,7 +84,7 @@ foreach ($users as $u) {
             <img class="nav-icon" src="../../Assets/icons/book.svg" alt="" />
             Books
           </a>
-          <a class="nav-item" href="dashboard.php">
+          <a class="nav-item" href="analytics.php">
             <img class="nav-icon" src="../../Assets/icons/chart-svgrepo-com.svg" alt="" />
             Analytics
           </a>
@@ -123,7 +124,7 @@ foreach ($users as $u) {
             <div class="user">
               <div class="avatar">U</div>
               <div class="user-meta">
-                <span class="name">User</span>
+                <span class="name"><?= e($authDisplayName !== '' ? $authDisplayName : 'Admin') ?></span>
                 <span class="role">Admin</span>
               </div>
               <span class="caret">v</span>
@@ -137,8 +138,27 @@ foreach ($users as $u) {
               <h1>Members</h1>
               <p class="subtitle">Manage staff accounts and patron access.</p>
             </div>
-            <button class="primary">+ Add new user</button>
+            <div class="action-menu">
+              <button class="primary action-menu-button" type="button" aria-haspopup="true" aria-expanded="false">
+                + Create
+              </button>
+              <div class="action-menu-list" role="menu">
+                <a role="menuitem" href="add_user.php">New user</a>
+                <a role="menuitem" href="add_admin.php">New admin</a>
+              </div>
+            </div>
           </div>
+
+          <?php if ($flashSuccess): ?>
+            <div role="status" style="margin:8px 0 12px;color:#027a48;background:#ecfdf3;padding:10px 12px;border-radius:8px;">
+              <?= e((string)$flashSuccess) ?>
+            </div>
+          <?php endif; ?>
+          <?php if ($flashError): ?>
+            <div role="alert" style="margin:8px 0 12px;color:#b42318;background:#fee4e2;padding:10px 12px;border-radius:8px;">
+              <?= e((string)$flashError) ?>
+            </div>
+          <?php endif; ?>
 
           <div class="stat-grid">
             <article class="stat-card">
@@ -180,42 +200,32 @@ foreach ($users as $u) {
                   <th>Email</th>
                   <th>Role</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="users-table">
                 <?php foreach ($users as $u): ?>
-                  <tr data-role="<?= e(strtolower($u["role"])) ?>">
-                    <td><?= e($u["name"]) ?></td>
-                    <td><?= e($u["email"]) ?></td>
-                    <td><?= e($u["role"]) ?></td>
+                  <tr data-role="<?= e($u['role_key']) ?>">
+                    <td><?= e($u['name']) ?></td>
+                    <td><?= e($u['email']) ?></td>
+                    <td><?= e($u['role']) ?></td>
                     <td>
-                      <span class="status <?= e($u["status_class"]) ?>">
-                        <?= e($u["status_label"]) ?>
+                      <span class="status <?= e($u['status_class']) ?>">
+                        <?= e($u['status_label']) ?>
                       </span>
+                    </td>
+                    <td>
+                      <a class="table-action" href="edit_user.php?type=<?= e($u['type']) ?>&id=<?= e((string)$u['id']) ?>">Edit</a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
-
-            <div class="table-footer">
-              <span>
-                Showing <?= e((string)count($users)) ?> of <?= e((string)count($users)) ?> users
-              </span>
-              <div class="pager">
-                <button class="page-btn" type="button">1</button>
-                <button class="page-btn" type="button">2</button>
-                <button class="page-btn" type="button">3</button>
-              </div>
-            </div>
           </div>
         </section>
       </main>
     </div>
 
-    <script src="../../Assets/js/script.js"></script>
     <script src="../../Assets/js/utilisateurs.js"></script>
   </body>
 </html>
-
-

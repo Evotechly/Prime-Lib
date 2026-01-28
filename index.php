@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+﻿<?php
+require_once __DIR__ . '/includes/auth.php';
+if (auth_role() === 'admin') {
+    redirect('/primelib/pages/admin/dashboard.php');
+}
+if (auth_role() === 'user') {
+    redirect('/primelib/pages/reader/dashboard.php');
+}
+function e(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
+$publicBooks = [];
+$bookResult = $conn->query('SELECT id_livre, titre, auteur, genre, annee_publication, etat_disponibilite, cover_url FROM livre ORDER BY id_livre DESC LIMIT 8');
+if ($bookResult) {
+    while ($row = $bookResult->fetch_assoc()) {
+        $publicBooks[] = $row;
+    }
+    $bookResult->close();
+}
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -76,6 +97,40 @@
           </div>
           <div class="stat-foot up">+ Hours per week</div>
         </article>
+      </div>
+
+      <div style="margin-top: 28px;">
+        <h2>Catalogue highlights</h2>
+        <div class="stat-label" style="margin-top: 6px;">A sneak peek at what readers can borrow instantly.</div>
+        <div class="book-grid" style="margin-top: 16px;">
+          <?php if (count($publicBooks) === 0): ?>
+            <div class="reader-empty">No books available yet. Add books in the admin panel.</div>
+          <?php endif; ?>
+          <?php foreach ($publicBooks as $book): ?>
+            <?php
+              $cover = (string)($book['cover_url'] ?? '');
+              $coverSrc = $cover !== '' ? $cover : 'Assets/images/book-placeholder.svg';
+              $status = (string)$book['etat_disponibilite'];
+            ?>
+            <article class="book-card">
+              <img class="book-cover" src="<?= e($coverSrc) ?>" alt="<?= e((string)$book['titre']) ?>" onerror="this.src='Assets/images/book-placeholder.svg';" />
+              <div class="book-meta">
+                <div class="book-title"><?= e((string)$book['titre']) ?></div>
+                <div class="book-author">by <?= e((string)$book['auteur']) ?></div>
+                <div class="book-tags">
+                  <span class="tag"><?= e((string)($book['genre'] ?? 'General')) ?></span>
+                  <span class="tag soft"><?= e((string)($book['annee_publication'] ?? '')) ?></span>
+                </div>
+                <span class="status <?= $status === 'disponible' ? 'available' : ($status === 'perdu' ? 'unavailable' : 'soon') ?>">
+                  <?= $status === 'disponible' ? 'Available' : ($status === 'perdu' ? 'Lost' : 'On loan') ?>
+                </span>
+              </div>
+              <div class="book-actions">
+                <a class="primary" href="login.php">Sign in to borrow</a>
+              </div>
+            </article>
+          <?php endforeach; ?>
+        </div>
       </div>
 
       <div class="grid" style="margin-top: 18px;">
@@ -209,3 +264,4 @@
   <script src="Assets/js/script.js"></script>
 </body>
 </html>
+

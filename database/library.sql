@@ -1,4 +1,4 @@
--- Base de données : Gestion de Bibliothèque (simple niveau L2)
+﻿-- Base de donnees : Gestion de Bibliotheque (simple niveau L2)
 -- MySQL / MariaDB compatible
 
 CREATE DATABASE IF NOT EXISTS bibliotheque;
@@ -11,7 +11,26 @@ CREATE TABLE admin (
   id_admin INT AUTO_INCREMENT PRIMARY KEY,
   nom    VARCHAR(100) NOT NULL,
   prenom VARCHAR(100) NOT NULL,
-  email  VARCHAR(150) NOT NULL UNIQUE
+  email  VARCHAR(150) NOT NULL UNIQUE,
+  mot_de_passe VARCHAR(255) NOT NULL
+);
+
+-- =========================
+-- TABLE : SETTINGS
+-- =========================
+CREATE TABLE settings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  library_name VARCHAR(200) NOT NULL,
+  contact_email VARCHAR(150) NOT NULL,
+  contact_phone VARCHAR(50) NOT NULL,
+  timezone VARCHAR(50) NOT NULL,
+  language VARCHAR(50) NOT NULL,
+  loan_days INT NOT NULL DEFAULT 14,
+  late_fee DECIMAL(10,2) NOT NULL DEFAULT 1.00,
+  due_reminders VARCHAR(120) NOT NULL DEFAULT 'Email + SMS enabled',
+  overdue_alerts VARCHAR(120) NOT NULL DEFAULT 'Escalation after 3 days',
+  two_factor VARCHAR(80) NOT NULL DEFAULT 'Required for staff accounts',
+  session_timeout VARCHAR(80) NOT NULL DEFAULT '30 minutes of inactivity'
 );
 
 -- =========================
@@ -22,7 +41,8 @@ CREATE TABLE utilisateur (
   nom    VARCHAR(100) NOT NULL,
   prenom VARCHAR(100) NOT NULL,
   email  VARCHAR(150) NOT NULL UNIQUE,
-  id_admin INT,  -- (optionnel) admin qui gère cet utilisateur
+  mot_de_passe VARCHAR(255) NOT NULL,
+  id_admin INT,  -- (optionnel) admin qui gere cet utilisateur
 
   CONSTRAINT fk_utilisateur_admin
     FOREIGN KEY (id_admin) REFERENCES admin(id_admin)
@@ -40,8 +60,9 @@ CREATE TABLE livre (
   genre  VARCHAR(80),
   annee_publication INT,
   etat_disponibilite VARCHAR(30) NOT NULL, -- ex: 'disponible', 'emprunte', 'perdu'
+  cover_url VARCHAR(255) NULL,
 
-  id_admin INT, -- admin qui gère ce livre (0,1 côté livre ; 0,n côté admin)
+  id_admin INT, -- admin qui gere ce livre (0,1 cote livre ; 0,n cote admin)
   CONSTRAINT fk_livre_admin
     FOREIGN KEY (id_admin) REFERENCES admin(id_admin)
     ON UPDATE CASCADE
@@ -60,7 +81,7 @@ CREATE TABLE emprunt (
 
   id_utilisateur INT NOT NULL,
   id_livre INT NOT NULL,
-  id_admin INT NULL, -- admin qui supervise l’emprunt (0,1 côté emprunt ; 0,n côté admin)
+  id_admin INT NULL, -- admin qui supervise l'emprunt (0,1 cote emprunt ; 0,n cote admin)
 
   CONSTRAINT fk_emprunt_utilisateur
     FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur)
@@ -79,7 +100,7 @@ CREATE TABLE emprunt (
 );
 
 -- =========================
--- (Optionnel mais utile) Index pour accélérer les recherches
+-- (Optionnel mais utile) Index pour accelerer les recherches
 -- =========================
 CREATE INDEX idx_emprunt_utilisateur ON emprunt(id_utilisateur);
 CREATE INDEX idx_emprunt_livre ON emprunt(id_livre);
